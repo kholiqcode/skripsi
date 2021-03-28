@@ -12,9 +12,9 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 
 # static data
-g1 = "saaaarapan roti biar kaya bule"
+g1 = "saaaarapan roti biar kamu kaya bule"
 g2 = "pelit kayaaaaa Orangggg cina anjing"
-g3 = "dia pantes lelet Kaya orang jawa"
+g3 = "dia pantes lelet kamu Kaya orang jawa"
 g4 = "negro"
 g5 = "kamu orang timur biasanya yg rusuh"
 g6 = "orang-orang banyuwangi suka nyantet"
@@ -58,15 +58,29 @@ tweets_stopword = [stopword.remove(tweet_steeming)
 tweets_stopword = [tweet_stopword.split()
                    for tweet_stopword in tweets_stopword]
 TF_dict = {}
+DF_dict = {}
+twets = []
 for tweet_stopword in tweets_stopword:
-    for word_tweet in tweet_stopword:
-        if word_tweet in TF_dict:
-            TF_dict[word_tweet] += 1
+    twets = twets+tweet_stopword
+for index, tweet_stopword in enumerate(tweets_stopword):
+    WD_dict = {}
+    DF = 0
+    for word_twet in twets:
+        if word_twet in WD_dict and word_twet in tweet_stopword:
+            WD_dict[word_twet] += 1
+            DF += 1
+        elif word_twet not in WD_dict and word_twet in tweet_stopword:
+            WD_dict[word_twet] = 1
+            DF += 1
         else:
-            TF_dict[word_tweet] = 1
-    for term in TF_dict:
-        TF_dict[term] = TF_dict[term]/len(tweets_stopword)
-
-for key in TF_dict[90]:
-    print(key)
-# print(TWEET_DATA["TF_dict"])
+            WD_dict[word_twet] = 0
+    for word_tweet in tweet_stopword:
+        if word_tweet in DF_dict:
+            DF_dict[word_tweet] += 1
+        else:
+            DF_dict[word_tweet] = 1
+    TF_dict[index] = WD_dict
+TF_dict["DF"] = DF_dict
+TF_dict["IDF"] = [DF_dict[twet]/len(tweets_stopword)
+                  for twet in twets]
+print(TF_dict)
