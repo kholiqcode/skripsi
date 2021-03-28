@@ -57,30 +57,61 @@ tweets_stopword = [stopword.remove(tweet_steeming)
 # Pembobotan Kata
 tweets_stopword = [tweet_stopword.split()
                    for tweet_stopword in tweets_stopword]
-TF_dict = {}
-DF_dict = {}
+
+
 twets = []
 for tweet_stopword in tweets_stopword:
     twets = twets+tweet_stopword
-for index, tweet_stopword in enumerate(tweets_stopword):
-    WD_dict = {}
-    DF = 0
-    for word_twet in twets:
-        if word_twet in WD_dict and word_twet in tweet_stopword:
-            WD_dict[word_twet] += 1
-            DF += 1
-        elif word_twet not in WD_dict and word_twet in tweet_stopword:
-            WD_dict[word_twet] = 1
-            DF += 1
+TWEETS = {}
+for tweet in twets:
+    _TF_dict = {}
+    _DF = 0
+    for index, tweet_stopword in enumerate(tweets_stopword):
+        if tweet in tweet_stopword and tweet in _TF_dict:
+            _TF_dict["Data"+str(index)] += 1
+            _DF += 1
+        elif tweet in tweet_stopword and tweet not in _TF_dict:
+            _TF_dict["Data"+str(index)] = 1
+            _DF = 1
         else:
-            WD_dict[word_twet] = 0
-    for word_tweet in tweet_stopword:
-        if word_tweet in DF_dict:
-            DF_dict[word_tweet] += 1
-        else:
-            DF_dict[word_tweet] = 1
-    TF_dict[index] = WD_dict
-TF_dict["DF"] = DF_dict
-TF_dict["IDF"] = [DF_dict[twet]/len(tweets_stopword)
-                  for twet in twets]
-print(TF_dict)
+            _TF_dict["Data"+str(index)] = 0
+    _TF_dict["DF"] = _DF
+    _TF_dict["IDF"] = _DF/len(tweets_stopword)
+    TWEETS[tweet] = _TF_dict
+
+# Hasil Pembobotan
+RESULT_TF_IDF = {}
+for tweet in twets:
+    _TF_IDF_dict = {}
+    for index, tweet_stopword in enumerate(tweets_stopword):
+        _TF_IDF_dict["Data"+str(index)] = TWEETS[tweet]["Data" +
+                                                        str(index)]*TWEETS[tweet]["IDF"]
+    RESULT_TF_IDF[tweet] = _TF_IDF_dict
+
+print(RESULT_TF_IDF)
+
+
+# TF_dict = {}
+# DF_dict = {}
+# for index, tweet_stopword in enumerate(tweets_stopword):
+#     WD_dict = {}
+#     DF = 0
+#     for word_twet in twets:
+#         if word_twet in WD_dict and word_twet in tweet_stopword:
+#             WD_dict[word_twet] += 1
+#             DF += 1
+#         elif word_twet not in WD_dict and word_twet in tweet_stopword:
+#             WD_dict[word_twet] = 1
+#             DF += 1
+#         else:
+#             WD_dict[word_twet] = 0
+#     for word_tweet in tweet_stopword:
+#         if word_tweet in DF_dict:
+#             DF_dict[word_tweet] += 1
+#         else:
+#             DF_dict[word_tweet] = 1
+#     TF_dict[index] = WD_dict
+# TF_dict["DF"] = DF_dict
+# TF_dict["IDF"] = [DF_dict[twet]/len(tweets_stopword)
+#                   for twet in twets]
+# print(TWEET)
