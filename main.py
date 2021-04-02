@@ -78,7 +78,7 @@ for tweet in twets:
 
 # Analisa Fitur Selection
 _FS = {}
-for index, TWEET in enumerate(TWEETS):
+for TWEET in TWEETS:
     _FS[TWEET] = RESULT_TF_IDF[TWEET]
     _FS[TWEET]['DF'] = TWEETS[TWEET]['DF']
 
