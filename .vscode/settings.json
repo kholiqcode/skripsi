@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "C:\\Users\\Stack\\.virtualenvs\\skripsi-Idt4vBRT\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Stack\\.virtualenvs\\skripsi-Idt4vBRT\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }
