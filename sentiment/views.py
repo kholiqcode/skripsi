@@ -12,6 +12,18 @@ from sentiment.apps import SentimentConfig
 from sentiment.grab import Grab
 # Create your views here.
 
+def dashboard(request):
+     konteks = {
+          'title' : 'Judul'
+     }
+     return render(request, 'dashboard.html', konteks)
+
+def profils(request):
+     konteks = {
+          'title' : 'Profil'
+     }
+     return render(request, 'profils.html', konteks)
+
 @api_view(['GET'])
 def cyberbullying(request):
      if request.method == "GET":

@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 MODELS = os.path.join(BASE_DIR, 'sentiment/models')
 
+SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
+
 
 # Application definition
 
@@ -58,7 +60,10 @@ ROOT_URLCONF = 'skripsi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            'templates',
+             os.path.join(BASE_DIR, 'sentiment/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,3 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]

@@ -1,0 +1,46 @@
+{% load static %}
+<!-- [ navigation menu ] start -->
+<nav class="pcoded-navbar menu-light ">
+    <div class="navbar-wrapper  ">
+        <div class="navbar-content scroll-div ">
+
+            <div class="">
+                <div class=" main-menu-header">
+                    <img class="img-radius" src="{% static 'assets/images/user.jpg' %}" alt="User-Profile-Image">
+                    <div class="user-details">
+                        <div id="more-details">Admin <i class="fa fa-caret-down"></i></div>
+                    </div>
+                </div>
+                <div class="collapse" id="nav-user-link">
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#" data-toggle="tooltip" title="View Profile"><i
+                                    class="feather icon-user"></i></a></li>
+                        <li class="list-inline-item"><a href="#" data-toggle="tooltip"
+                                title="Logout" class="text-danger"><i class="feather icon-power"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <ul class="nav pcoded-inner-navbar ">
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Panel</label>
+                </li>
+                <li class="nav-item"><a href="#" class="nav-link "><span
+                            class="pcoded-micon"><i class="feather icon-home"></i></span><span
+                            class="pcoded-mtext">Dashboard</span></a>
+                </li>
+
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Other</label>
+                </li>
+
+                <li class="nav-item"><a href="#" class="nav-link "><span
+                            class="pcoded-micon"><i class="feather icon-power text-danger"></i></span><span
+                            class="pcoded-mtext text-danger">Logout</span></a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- [ navigation menu ] end -->
