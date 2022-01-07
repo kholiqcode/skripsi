@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from sentiment.views import cyberbullying, emotion, general
+from sentiment.views import cyberbullying, emotion, general, user
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', general),
+    path('user', user),
     path('cyberbullying', cyberbullying),
     path('emotion', emotion),
 ]

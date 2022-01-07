@@ -57,3 +57,8 @@ class Grab():
                 }
                 tweetList.append(tweetObj)
         return tweetList
+
+    @staticmethod
+    def getUserByUsername(username):
+        user = Grab().api.get_user(screen_name=username)
+        return user

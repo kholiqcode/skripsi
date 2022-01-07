@@ -1,4 +1,6 @@
 import json
+from json.encoder import JSONEncoder
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.views import APIView
@@ -74,4 +76,13 @@ def general(request):
           for index, w in enumerate(_predicted_data):
                tweetList[index]['sentiment'] = w
 
-          return JsonResponse(tweetList,safe=False)
+          return JsonResponse(tweetList)
+
+@api_view(['GET'])
+def user(request):
+     if request.method == "GET":
+          username = request.GET.get("username")  # get text from the parameter
+
+          user = Grab.getUserByUsername(username)
+
+          return HttpResponse(user)
