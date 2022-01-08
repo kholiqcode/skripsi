@@ -24,6 +24,31 @@ def profils(request):
      }
      return render(request, 'profils.html', konteks)
 
+def sentiment(request):
+     if request.method == "GET":
+          username = request.GET.get("username")  # get text from the parameter
+          jumlah = request.GET.get("jumlah")  # get text from the parameter
+
+          tweetList = Grab.getTweetByUsername(username,jumlah)
+          #Cleaning the received text
+          process = clean_text.TextPreprocess()
+          cleanedText = [process.normalizer(tweet['text']) for tweet in tweetList]
+
+          # vectorizing the given text
+          vector_text = SentimentConfig.vectorizer_general.transform(cleanedText)
+          
+          # Predict sentiment based on vector
+          _predicted_data = SentimentConfig.model_general.predict(vector_text)
+          
+          for index, w in enumerate(_predicted_data):
+               tweetList[index]['sentiment'] = w
+     konteks = {
+          'title' : 'Sentiment',
+          'tweetList' : tweetList
+     }
+
+     return render(request, 'sentiment.html', konteks)
+
 @api_view(['GET'])
 def cyberbullying(request):
      if request.method == "GET":
@@ -88,7 +113,7 @@ def general(request):
           for index, w in enumerate(_predicted_data):
                tweetList[index]['sentiment'] = w
 
-          return JsonResponse(tweetList)
+          return JsonResponse(tweetList,safe=False)
 
 @api_view(['GET'])
 def user(request):
