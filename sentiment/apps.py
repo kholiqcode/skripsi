@@ -2,7 +2,7 @@ from django.apps import AppConfig
 from django.conf import settings
 
 import os
-import pickle
+import joblib
 
 
 class SentimentConfig(AppConfig):
@@ -11,16 +11,15 @@ class SentimentConfig(AppConfig):
     path_emosi = os.path.join(settings.MODELS, 'models_emotion.p')
     path_general = os.path.join(settings.MODELS, 'models_general.p')
 
-    # separation of data packed in the model pickle
-
-    with open(path, 'rb') as pickledFile:
-        data = pickle.load(pickledFile)
+    # separation of data packed in the model joblib
+    with open(path, 'rb') as joblibFile:
+        data = joblib.load(joblibFile)
     
-    with open(path_emosi, 'rb') as pickledFile:
-        data_emosi = pickle.load(pickledFile)
+    with open(path_emosi, 'rb') as joblibFile:
+        data_emosi = joblib.load(joblibFile)
 
-    with open(path_general, 'rb') as pickledFile:
-        data_general = pickle.load(pickledFile)
+    with open(path_general, 'rb') as joblibFile:
+        data_general = joblib.load(joblibFile)
 
     model = data['classifier']
     vectorizer = data['vectorizer']

@@ -1,0 +1,209 @@
+{% extends 'layout/app.html' %} {% load static %} {% block content %}
+<!-- [ Main Content ] start -->
+<div class="pcoded-main-container">
+  <div class="pcoded-content">
+    <!-- [ Main Content ] start -->
+    <!-- profile header start -->
+    <div class="user-profile user-card mb-4">
+      <div class="card-header border-0 p-0 pb-0">
+        <div class="cover-img-block">
+          <!-- <img src="assets/images/profile/cover.jpg" alt="" class="img-fluid"> -->
+          <div class="overlay"></div>
+          <div class="change-cover">
+            <div class="dropdown">
+              <a
+                class="drp-icon dropdown-toggle"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                ><i class="icon feather icon-camera"></i
+              ></a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#"
+                  ><i class="feather icon-upload-cloud me-2"></i>upload new</a
+                >
+                <a class="dropdown-item" href="#"
+                  ><i class="feather icon-image me-2"></i>from photos</a
+                >
+                <a class="dropdown-item" href="#"
+                  ><i class="feather icon-film me-2"></i> upload video</a
+                >
+                <a class="dropdown-item" href="#"
+                  ><i class="feather icon-trash-2 me-2"></i>remove</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body py-0">
+        <div class="user-about-block m-0">
+          <div class="row">
+            <div class="col-md-4 text-center mt-n5">
+              <div class="change-profile text-center">
+                <div class="dropdown w-auto d-inline-block">
+                  <a
+                    class="dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <div class="profile-dp">
+                      <div class="position-relative d-inline-block">
+                        <img
+                          class="img-radius img-fluid wid-100"
+                          src="{{user.profile_image_url}}"
+                          alt="User image"
+                        />
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <h5 class="mb-1">{{user.name}}</h5>
+              <p class="mb-2 text-muted">{{user.screen_name}}</p>
+            </div>
+            <div class="col-md-8 mt-md-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <a
+                    href="#!"
+                    class="mb-1 text-muted d-flex align-items-end text-h-primary"
+                    ><i class="feather icon-globe me-2 mr-2 f-18"></i
+                    >{{user.location}}</a
+                  >
+                  <div class="clearfix"></div>
+                  <a
+                    href="#!"
+                    class="mb-1 text-muted d-flex align-items-end text-h-primary"
+                    ><i class="feather icon-map-pin me-2 mr-2 f-18"></i
+                    >{{user.url}}</a
+                  >
+                </div>
+                <div class="col-md-6">
+                  <div class="media">
+                    <i class="feather icon-user me-2 mt-1 mr-2 f-18"></i>
+                    <div class="flex-grow-1">
+                      <p class="mb-0 text-muted">{{user.description}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- profile header end -->
+
+    <!-- profile body start -->
+    <div class="row">
+      <!-- Individual Column Searching (Text Inputs) start -->
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>Tweets</h5>
+          </div>
+          <div class="card-body">
+            <div class="dt-responsive table-responsive">
+              <table
+                id="datatables"
+                class="table table-striped table-bordered nowrap text-center"
+              >
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th width="30%">Text</th>
+                    <th>Sentiment</th>
+                    <th width="10%">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for sentiment in tweetList %}
+                  <tr>
+                    <td>1</td>
+                    <td>{{sentiment.username}}</td>
+                    <td style="word-break: break-all">{{sentiment.text}}</td>
+                    {% if sentiment.label == 1%}
+                    <td><span class="badge bg-success">Positif</span></td>
+                    {% elif sentiment.label == -1 %}
+                    <td><span class="badge bg-warning">Negatif</span></td>
+                    {% else %}
+                    <td><span class="badge bg-info">Netral</span></td>
+                    {% endif %}
+                    <td>
+                      <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-eye"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>No</th>
+                    <th>Username</th>
+                    <th>Text</th>
+                    <th>Sentiment</th>
+                    <th width="10%">Aksi</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Individual Column Searching (Text Inputs) end -->
+    </div>
+  </div>
+</div>
+<!-- [ Main Content ] end -->
+{% endblock %} {% block style %}
+<!-- data tables css -->
+<link
+  rel="stylesheet"
+  href="{% static 'assets/css/plugins/dataTables.bootstrap4.min.css' %}"
+/>
+<!-- ekko-lightbox css -->
+<link
+  rel="stylesheet"
+  href="{% static 'assets/css/plugins/ekko-lightbox.css' %}"
+/>
+<link
+  rel="stylesheet"
+  href="{% static 'assets/css/plugins/lightbox.min.css' %}"
+/>
+{% endblock %} {% block script %}
+<!-- Datatables -->
+<script src="{% static 'assets/js/plugins/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/dataTables.bootstrap4.min.js' %}"></script>
+\
+<script src="{% static 'assets/js/pages/data-api-custom.js' %}"></script>
+<!-- sweet alert Js -->
+<script src="{% static 'assets/js/plugins/sweetalert.min.js' %}"></script>
+<!-- ekko-lightbox Js -->
+<script src="{% static 'assets/js/plugins/ekko-lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/lightbox.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/ac-lightbox.js' %}"></script>
+<script>
+  // [ Individual Column Searching (Text Inputs) ]
+  $("#datatables tfoot th").each(function () {
+    var title = $(this).text();
+    $(this).html(
+      '<input type="text" class="form-control" placeholder="Search ' +
+        title +
+        '" />'
+    );
+  });
+
+  // [ customer-scroll ] start
+  var px = new PerfectScrollbar(".cust-scroll", {
+    wheelSpeed: 0.5,
+    swipeEasing: 0,
+    wheelPropagation: 1,
+    minScrollbarLength: 40,
+  });
+  // [ customer-scroll ] end
+</script>
+{% endblock %}

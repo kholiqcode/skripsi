@@ -16,16 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from sentiment.views import cyberbullying, dashboard, emotion, general, profils, sentiment, user
+from sentiment.views import cyberbullying, dashboard, emotion, general, profil, tag, users, sentiment, user
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', general),
+    path('/general', general),
     path('user', user),
     path('cyberbullying', cyberbullying),
     path('emotion', emotion),
-    path('dashboard', dashboard),
-    path('profils', profils),
+    path('', dashboard),
+    path('users', users),
+    path('profil', profil, name='profil'),
+    path('tags', tag),
     path('sentiment', sentiment),
 ]

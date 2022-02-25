@@ -38,8 +38,29 @@ class Grab():
         return tweetList
 
     @staticmethod
-    def getTweetByUsername(username,jumlah):
-        tweets = Grab().api.user_timeline(screen_name=username, count=jumlah,)
+    def getTweetByUsername(username,jumlah=100):
+        tweets = Grab().api.user_timeline(screen_name=username, count=jumlah)
+        # tweets = GrabController().api.search(
+        #     q=keyword, lang="id", rpp=jumlah, tweet_mode='extended')
+        tweetList = []
+        for tweet in tweets:
+            if('RT @' not in str(tweet.text)):
+                fullText = str(tweet.text)
+                userName = str(tweet.user.screen_name)
+                tweetObj = {
+                    "tweetid": tweet.id,
+                    "userid": tweet.user.id,
+                    "username": unidecode(userName),
+                    "text": unidecode(fullText),
+                    "label": 0,
+                    "created_at": tweet.created_at,
+                }
+                tweetList.append(tweetObj)
+        return tweetList
+
+    @staticmethod
+    def getTweetByTag():
+        tweets = Grab().api.available_trends()
         # tweets = GrabController().api.search(
         #     q=keyword, lang="id", rpp=jumlah, tweet_mode='extended')
         tweetList = []
